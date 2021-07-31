@@ -33,6 +33,14 @@ def get_device(self):
 @implements(torch.Tensor.is_complex)
 def is_complex(self):
     return self.torch().is_complex()
+
+@implements(torch.Tensor.size)
+def size(self, *args, **kwargs):
+    """
+    Gets standard size
+    """
+    return torch.Tensor.size(self.q, *args, **kwargs)
+
 @implements(torch.Tensor.T.__get__)
 def T(self):
     return self.q.t()
