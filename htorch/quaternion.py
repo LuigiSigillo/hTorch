@@ -27,6 +27,12 @@ def shape(self):
     return torch.Tensor.shape.__get__(self.q)
 
 
+@implements(torch.Tensor.get_device)
+def get_device(self):
+    return self.torch().get_device()
+@implements(torch.Tensor.is_complex)
+def is_complex(self):
+    return self.torch().is_complex()
 @implements(torch.Tensor.T.__get__)
 def T(self):
     return self.q.t()
@@ -153,6 +159,9 @@ def unsqueeze(self, *args, **kwargs):
 def relu(input, *args, **kwargs):
     return torch.nn.functional.relu(input.q, *args, **kwargs)
 
+@implements(torch.nn.functional.leaky_relu)
+def leaky_relu(input, *args, **kwargs):
+    return torch.nn.functional.leaky_relu(input.q, *args, **kwargs)
 
 # ----------------------------------- conj ---------------------------------------------------
 
